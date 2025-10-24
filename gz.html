@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Halaman Keren</title>
+<style>
+  :root{
+    --bg1:#5b6bd6;
+    --bg2:#a678ff;
+    --accent:#fff;
+    --pill-bg: rgba(255,255,255,0.95);
+    --card: rgba(255,255,255,0.06);
+  }
+  html,body{height:100%;}
+  body{
+    margin:0;
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,var(--bg1) 0%, #7ea1ff 35%, #c291ff 60%, #b88eff 100%);
+    color:var(--accent);
+    -webkit-font-smoothing:antialiased;
+    display:flex;
+    align-items:stretch;
+    justify-content:center;
+  }
+
+  .wrap{
+    width:100%;
+    max-width:420px;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.15) inset;
+  }
+
+  header{
+    padding:34px 22px 10px;
+    text-align:center;
+    background: linear-gradient(180deg, rgba(0,0,0,0.08), transparent);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  h1{
+    margin:0;
+    font-size:44px;
+    line-height:1;
+    font-weight:800;
+    text-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  }
+
+  main{
+    padding:28px 26px;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+    align-items:center;
+  }
+  p.lead{
+    max-width:320px;
+    text-align:center;
+    margin:0;
+    font-size:16px;
+    opacity:0.95;
+  }
+
+  .btn-pill{
+    margin-top:6px;
+    background:var(--pill-bg);
+    color:#3355aa;
+    padding:18px 38px;
+    border-radius:60px;
+    font-weight:700;
+    font-size:18px;
+    border:none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    cursor:pointer;
+    transition: transform .14s ease, box-shadow .14s ease;
+  }
+  .btn-pill:active{ transform: translateY(2px) scale(.998); }
+  .btn-pill:focus{ outline: none; box-shadow: 0 10px 30px rgba(0,0,0,0.22); }
+
+  /* modal */
+  .overlay{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.4));
+    z-index:40;
+    padding:20px;
+  }
+  .overlay.show{ display:flex; animation:fadeIn .18s ease; }
+  @keyframes fadeIn { from {opacity:0; transform: translateY(6px)} to {opacity:1; transform: translateY(0)} }
+
+  .modal{
+    width:100%;
+    max-width:420px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+    border-radius:14px;
+    padding:18px;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+  }
+  .modal h3{ margin:6px 4px 12px; color:var(--accent); font-size:18px; }
+  .grid{
+    display:grid;
+    gap:10px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .link-card{
+    background: var(--card);
+    border-radius:12px;
+    padding:14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    transition: transform .12s ease, box-shadow .12s ease;
+    text-decoration:none;
+    color:var(--accent);
+  }
+  .link-card:hover{ transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+  .link-icon{
+    width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+    display:flex;align-items:center;justify-content:center;font-weight:700;
+  }
+  .link-meta{ font-size:14px; line-height:1; }
+  .link-meta small{ display:block; opacity:0.85; font-size:12px; }
+
+  footer{
+    padding:14px 20px;
+    text-align:center;
+    background: linear-gradient(0deg, rgba(0,0,0,0.12), transparent);
+    font-size:14px;
+    color: rgba(255,255,255,0.95);
+  }
+
+  /* close button */
+  .modal .close{
+    float:right;
+    background:transparent;border:0;color:rgba(255,255,255,0.8);
+    font-size:20px;cursor:pointer;padding:6px;border-radius:8px;
+  }
+  .modal .close:hover{ background: rgba(255,255,255,0.02); }
+
+  @media (max-width:420px){
+    h1{ font-size:40px; }
+    .btn-pill{ padding:14px 30px; }
+  }
+
+</style>
+</head>
+<body>
+  <div class="wrap" role="document">
+    <header>
+      <h1>Selamat Datang<br>di Halaman Penuh Dosa(:</h1>
+    </header>
+
+    <main>
+      <p class="lead">Ini adalah halaman contoh dengan desain yang simpel tapi menarik :)</p>
+
+      <button id="open" class="btn-pill" aria-haspopup="dialog" aria-controls="modal">Klik Saya</button>
+
+      <!-- spacer -->
+      <div style="height:180px;width:100%;"></div>
+    </main>
+
+    <footer>Hak Cipta © 2025</footer>
+    <footer>Desain By Falzz Yang sigma</footer>
+  </div>
+
+  <!-- modal overlay -->
+  <div id="overlay" class="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="close" id="close" aria-label="Tutup">&times;</button>
+      <h3 id="modal-title">Pilih Website Tujuan</h3>
+
+      <div class="grid">
+        <!-- Ganti href dengan link yang kamu mau -->
+        <a class="link-card" href="https://xhamster.com/" target="_blank" rel="noopener noreferrer">
+          <div class="link-icon">1</div>
+          <div class="link-meta">Situs 1 <small></small></div>
+        </a>
+
+        <a class="link-card" href="https://pornhub.com/" target="_blank" rel="noopener noreferrer">
+          <div class="link-icon">2</div>
+          <div class="link-meta">Situs 2 (use vpn) <small></small></div>
+        </a>
+
+        <a class="link-card" href="https://pornhat.com/" target="_blank" rel="noopener noreferrer">
+          <div class="link-icon">3</div>
+          <div class="link-meta">Situs 3 <small></small></div>
+        </a>
+
+        <a class="link-card" href="https://123AV.com/" target="_blank" rel="noopener noreferrer">
+          <div class="link-icon">4</div>
+          <div class="link-meta">Situs 4 <small></small></div>
+        </a>
+
+        <a class="link-card" href="https://www.eporner.com/" target="_blank" rel="noopener noreferrer">
+          <div class="link-icon">5</div>
+          <div class="link-meta">Situs 5 <small></small></div>
+        </a>
+          
+          <a class="link-card" href="https://beeg.com/" target="_blank" rel="noopener noreferrer">
+          <div class="link-icon">6</div>
+          <div class="link-meta">Situs 6 <small></small></div>
+            
+            <a class="link-card" href="https://nekopoi.care/" target="_blank" rel="noopener noreferrer">
+          <div class="link-icon">7</div>
+          <div class="link-meta">Situs 7 <small></small></div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const openBtn = document.getElementById('open');
+  const overlay = document.getElementById('overlay');
+  const closeBtn = document.getElementById('close');
+
+  openBtn.addEventListener('click', ()=> {
+    overlay.classList.add('show');
+    overlay.setAttribute('aria-hidden','false');
+  });
+
+  closeBtn.addEventListener('click', ()=> {
+    overlay.classList.remove('show');
+    overlay.setAttribute('aria-hidden','true');
+  });
+
+  // tutup modal saat klik di luar modal
+  overlay.addEventListener('click', (e)=>{
+    if(e.target === overlay) {
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden','true');
+    }
+  });
+
+  // keyboard escape to close
+  document.addEventListener('keydown', (e)=> {
+    if(e.key === "Escape" && overlay.classList.contains('show')) {
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden','true');
+    }
+  });
+</script>
+</body>
+</html>
